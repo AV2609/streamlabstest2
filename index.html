@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Share Widget</title>
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0);
+            margin: 0;
+            overflow: hidden;
+        }
+        #hello-world {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
+    <script>
+        function showHelloWorld() {
+            const helloWorldElement = document.getElementById('hello-world');
+            helloWorldElement.style.opacity = 1;
+
+            setTimeout(() => {
+                helloWorldElement.style.opacity = 0;
+            }, 3000);
+        }
+
+        window.addEventListener('onEventReceived', (obj) => {
+            const listener = obj.detail.listener;
+            if (listener === 'message') {
+                const message = obj.detail.event.data.text;
+                if (message.toLowerCase() === '/supershare') {
+                    showHelloWorld();
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="hello-world">Hello World</div>
+</body>
+</html>
